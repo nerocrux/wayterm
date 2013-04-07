@@ -1,0 +1,82 @@
+= weiterm
+
+* http://github.com/nerocrux/weiterm
+
+== DESCRIPTION:
+
+Sina Weibo client for terminal
+
+== FEATURES/PROBLEMS:
+
+ Notice: Not working with python 3000, sorry.
+
+* packing
+ * TODO packaging & send to pypi
+
+* functions
+ * DONE get profile / get updates / post weibo
+ * TODO post comment / repost / ...
+
+== SYNOPSIS:
+
+* start weiterm
+
+ weiterm
+
+ weiterm > help
+ weiterm > exit
+
+* get updates on my timeline
+
+ weiterm > l
+ weiterm > list
+ weiterm > l/30 # get latest 30 updates
+
+* get profile
+
+ weiterm > p
+ weiterm > profile    # get my profile
+ weiterm > p/_KaiYun  # get _KaiYun's profile
+
+* post tweet
+
+ weiterm > t/write something
+ weiterm > tweet/中文也OK
+
+== INSTALL:
+
+ sudo pip install weiterm
+
+=============
+If run weiterm for the first time, you'll be ask to do some setups and authorizations.
+
+ [1] Open this url in your browser: http://api.weibo.com/xxxx
+ [2] Enter authorization code: 
+
+You know what to do.
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2013 peichao.yu 
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
