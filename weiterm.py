@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from weiterm_api import Weiterm_api
+from weiterm_color import Weiterm_color
 from weibo import Client
 import sys
 import json
@@ -33,12 +34,12 @@ class Weiterm(object):
 
 
     def _read_access_token(self):
-        token = yaml.load(open('config.yaml').read())
         try:
+            token = yaml.load(open('config.yaml').read())
             self.access_token = token['access_token']
             self.expire_at = token['expires_at']
             self.uid= token['uid']
-        except (TypeError, NameError):
+        except:
             return False
         return True
 
