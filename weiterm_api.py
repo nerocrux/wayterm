@@ -14,7 +14,7 @@ class Weiterm_api(object):
             - get user's profile
         """
         try:
-            scree_name = params[0]
+            screen_name = params[0]
         except IndexError:
             screen_name = None
         try:
