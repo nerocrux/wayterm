@@ -122,6 +122,5 @@ class Weiterm_api(object):
             options[cmd](params)
         except KeyError:
             print 'Command error. Get command list by type help.'
-            self.no_match()
 
 
