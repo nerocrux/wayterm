@@ -1,6 +1,6 @@
-= weiterm
+= wayterm
 
-* http://github.com/nerocrux/weiterm
+* http://github.com/nerocrux/wayterm
 
 == DESCRIPTION:
 
@@ -19,36 +19,36 @@ Sina Weibo client for terminal
 
 == SYNOPSIS:
 
-* start weiterm
+* start wayterm
 
- weiterm
+ wayterm
 
- weiterm > help
- weiterm > exit
+ wayterm > help
+ wayterm > exit
 
 * get updates on my timeline
 
- weiterm > l
- weiterm > list
- weiterm > l/30 # get latest 30 updates
+ wayterm > l
+ wayterm > list
+ wayterm > l/30 # get latest 30 updates
 
 * get profile
 
- weiterm > p
- weiterm > profile    # get my profile
- weiterm > p/_KaiYun  # get _KaiYun's profile
+ wayterm > p
+ wayterm > profile    # get my profile
+ wayterm > p/_KaiYun  # get _KaiYun's profile
 
 * post tweet
 
- weiterm > t/write something
- weiterm > tweet/中文也OK
+ wayterm > t/write something
+ wayterm > tweet/中文也OK
 
 == INSTALL:
 
- sudo pip install weiterm
+ sudo pip install wayterm
 
 =============
-If run weiterm for the first time, you'll be ask to do some setups and authorizations.
+If run wayterm for the first time, you'll be ask to do some setups and authorizations.
 
  [1] Open this url in your browser: http://api.weibo.com/xxxx
  [2] Enter authorization code: 

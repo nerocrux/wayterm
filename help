@@ -1,9 +1,9 @@
-    ---------  HELP  -------- for more information, visit http://weiterm.nerocrux.org/ --------
+    ---------  HELP  -------- for more information, visit http://wayterm.nerocrux.org/ --------
 
-    weiterm > l  or list      /[limit]           # show my timeline with count of [limit], default: 20
-    weiterm > p  or profile   /[username]        # show [username]'s profile, default: my profile
-    weiterm > t  or tweet     /[text]            # post [text] to my timeline
-    weiterm > rc or rcomment  /[tweet_id]        # list [tweet_id]'s comments
-    weiterm > c  or comment   /[tweet_id]/[text] # comment to [tweet_id]'s tweet with [text]
+    wayterm > l  or list      /[limit]           # show my timeline with count of [limit], default: 20
+    wayterm > p  or profile   /[username]        # show [username]'s profile, default: my profile
+    wayterm > t  or tweet     /[text]            # post [text] to my timeline
+    wayterm > rc or rcomment  /[tweet_id]        # list [tweet_id]'s comments
+    wayterm > c  or comment   /[tweet_id]/[text] # comment to [tweet_id]'s tweet with [text]
 
     -------------------------------------------------------------------------------------------
