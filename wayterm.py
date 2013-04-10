@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from weiterm_api import Weiterm_api
-from weiterm_color import Weiterm_color
+from wayterm_api import Wayterm_api
+from wayterm_color import Wayterm_color
 from weibo import Client
 import sys
 import json
 import yaml
 
-class Weiterm(object):
+class Wayterm(object):
     def __init__(self):
         self.app_key = '1746312660'
         self.app_secret = 'a113b12f49266b12125f6df1f9808045'
-        self.callback_url = 'http://weiterm.nerocrux.org/done'
+        self.callback_url = 'http://wayterm.nerocrux.org/done'
         self.uid = '1792779680'
-        self.color = Weiterm_color()
+        self.color = Wayterm_color()
 
         if self._read_access_token():
             self.client = Client(self.app_key, self.app_secret, self.callback_url, self.uid, self.access_token, self.expire_at)
@@ -68,20 +68,20 @@ class Weiterm(object):
             for line in f:
                 print line,
             return
-        api = Weiterm_api(self.client, self.uid)
+        api = Wayterm_api(self.client, self.uid)
         api.call(command)
 
 
 if __name__ == "__main__":
-    weiterm = Weiterm()
-    weiterm._init_print()
+    wayterm = Wayterm()
+    wayterm._init_print()
     while True:
         try:
-            command = raw_input('weiterm > ')
+            command = raw_input('wayterm > ')
             if len(command) == 0:
                 pass
             else:
-                weiterm.call(command.split('/'))
+                wayterm.call(command.split('/'))
         except:
             print 'exiting...'
             exit()

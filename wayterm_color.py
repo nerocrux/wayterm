@@ -1,4 +1,4 @@
-class Weiterm_color:
+class Wayterm_color:
     PLAIN = '\033[0m'
     NAME = '\033[94m'
     LABEL = '\033[95m'

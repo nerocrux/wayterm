@@ -1,16 +1,16 @@
 import sys
-from weiterm_color import Weiterm_color
+from wayterm_color import Wayterm_color
 
-class Weiterm_api(object):
+class Wayterm_api(object):
     def __init__(self, client, uid):
         self.client = client
         self.uid = uid
-        self.color =  Weiterm_color()
+        self.color =  Wayterm_color()
 
     def get_profile(self, params):
         """
-        weiterm > profile/[screen_name]
-        weiterm > p/[screen_name]
+        wayterm > profile/[screen_name]
+        wayterm > p/[screen_name]
             - get user's profile
         """
         try:
@@ -38,8 +38,8 @@ class Weiterm_api(object):
 
     def get_updates(self, params):
         """
-        weiterm > list/[limit]
-        weiterm > l/[limit]
+        wayterm > list/[limit]
+        wayterm > l/[limit]
             - get user's newest updates
             - default limit = 20
         """
@@ -60,8 +60,8 @@ class Weiterm_api(object):
 
     def post_tweet(self, params):
         """
-        weiterm > tweet/[message]
-        weiterm > t/[message]
+        wayterm > tweet/[message]
+        wayterm > t/[message]
             - post weibo
         """
         try:
@@ -85,8 +85,8 @@ class Weiterm_api(object):
 
     def get_comments(self, params):
         """
-        weiterm > rcomment/[tweet_id]
-        weiterm > rc/[message]
+        wayterm > rcomment/[tweet_id]
+        wayterm > rc/[message]
             - read comments of a certain tweet
         """
         tweet_id = params[0]
