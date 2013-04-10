@@ -4,14 +4,14 @@
 from distutils.core import setup
 
 setup(
-    name='weiterm',
+    name='wayterm',
     version='0.0.1',
     description='Weibo client for terminal',
     author='peichao.yu',
     author_email='nerocrux@gmail.com',
-    py_modules=['weiterm', ],
+    py_modules=['wayterm', ],
     package_data={'': ['LICENSE'], },
-    url='http://weiterm.nerocrux.org/',
+    url='http://wayterm.nerocrux.org/',
     license=open('LICENSE').read(),
     long_description=open('README.rdoc').read(),
     install_requires=[
