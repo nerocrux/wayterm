@@ -81,7 +81,7 @@ if __name__ == "__main__":
             if len(command) == 0:
                 pass
             else:
-                wayterm.call(command.split('/'))
+                wayterm.call(command.split('\\'))
         except:
             print 'exiting...'
             exit()

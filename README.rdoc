@@ -30,18 +30,18 @@ Sina Weibo client for terminal
 
  wayterm > l
  wayterm > list
- wayterm > l/30 # get latest 30 updates
+ wayterm > l\30 # get latest 30 updates
 
 * get profile
 
  wayterm > p
  wayterm > profile    # get my profile
- wayterm > p/_KaiYun  # get _KaiYun's profile
+ wayterm > p\_KaiYun  # get _KaiYun's profile
 
 * post tweet
 
- wayterm > t/write something
- wayterm > tweet/中文也OK
+ wayterm > t\write something
+ wayterm > tweet\中文也OK
 
 == INSTALL:
 
