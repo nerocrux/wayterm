@@ -54,8 +54,11 @@ class Wayterm_api(object):
             return
         for status in response['statuses']:
             print self.color.NAME + '[' + status['user']['screen_name'] + '] ' + \
-                  self.color.PLAIN + status['text'] + ' ' + \
-                  self.color.DARK + status['created_at'] + ' [id] ' + str(status['id']) + self.color.PLAIN
+                  self.color.PLAIN + status['text'] + ' '
+            print self.color.DARK + status['created_at'] + \
+                  ' [id] ' + str(status['id']) +\
+                  ' [comments] ' + str(status['comments_count']) + \
+                  ' [reposts] ' + str(status['reposts_count']) + self.color.PLAIN
 
 
     def post_tweet(self, params):
