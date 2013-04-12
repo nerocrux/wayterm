@@ -148,7 +148,7 @@ class Wayterm_api(object):
         try:
             tweet_id = params[0]
         except IndexError:
-            print 'Error. Tweet id or comment iss not correct'
+            print 'Error. Tweet id or comment is invalid'
             return
         try:
             comment = params[1]
@@ -162,6 +162,27 @@ class Wayterm_api(object):
             print self.color.LABEL + ' L ' + \
                   self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
                   self.color.PLAIN + response['retweeted_status']['text'] + self.color.PLAIN
+
+        except RuntimeError:
+            print 'Error.'
+
+
+    def delete(self, params):
+        """
+        wayterm > delete\[tweet_id]\
+        wayterm > d\[tweet_id]\
+            - delete weibo
+        """
+        try:
+            tweet_id = params[0]
+        except IndexError:
+            print 'Error. Tweet id is invalid'
+            return
+        try:
+            response = self.client.post('statuses/destroy', id=tweet_id)
+            print self.color.LABEL + '[DELETED] ' + \
+                  self.color.VALUE + response['text'] + ' - ' + \
+                  self.color.DARK + response['created_at']
 
         except RuntimeError:
             print 'Error.'
@@ -182,6 +203,8 @@ class Wayterm_api(object):
             'wc'       : self.post_comments,
             'repost'   : self.repost,
             'r'        : self.repost,
+            'delete'   : self.delete,
+            'd'        : self.delete,
         }
         try:
             params = []

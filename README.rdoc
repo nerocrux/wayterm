@@ -10,13 +10,6 @@ Sina Weibo client for terminal
 
  Notice: Not working with python 3000, sorry.
 
-* packing
- * TODO packaging & send to pypi
-
-* functions
- * DONE get profile / get updates / post weibo
- * TODO post comment / repost / ...
-
 == SYNOPSIS:
 
 * start wayterm
@@ -57,6 +50,11 @@ Sina Weibo client for terminal
 * repost
  wayterm > r\3566407071718733\foobar    # repost a weibo and add comment 'foobar'
  wayterm > r\3566407071718733           # repost a weibo without add comment
+
+* delete tweet
+
+ wayterm > d\3566288775194487
+ wayterm > delete\3566288775194487     # delete a certain weibo
 
 == INSTALL:
 
