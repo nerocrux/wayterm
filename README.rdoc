@@ -43,6 +43,17 @@ Sina Weibo client for terminal
  wayterm > t\write something
  wayterm > tweet\中文也OK
 
+* get comments
+
+wayterm > c
+wayterm > comment            # get latest 20 comments sent to me
+wayterm > c\3566288775194487 # get comments for a certain weibo
+
+* post comment
+
+wayterm > wc\3566288775194487\foobar
+wayterm > wcomment\3566288775194487\foobar   # post foobar to a certain weibo
+
 == INSTALL:
 
  sudo pip install wayterm

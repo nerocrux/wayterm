@@ -9,8 +9,8 @@ class Wayterm_api(object):
 
     def get_profile(self, params):
         """
-        wayterm > profile/[screen_name]
-        wayterm > p/[screen_name]
+        wayterm > profile\[screen_name]
+        wayterm > p\[screen_name]
             - get user's profile
         """
         try:
@@ -38,8 +38,8 @@ class Wayterm_api(object):
 
     def get_updates(self, params):
         """
-        wayterm > list/[limit]
-        wayterm > l/[limit]
+        wayterm > list\[limit]
+        wayterm > l\[limit]
             - get user's newest updates
             - default limit = 20
         """
@@ -60,8 +60,8 @@ class Wayterm_api(object):
 
     def post_tweet(self, params):
         """
-        wayterm > tweet/[message]
-        wayterm > t/[message]
+        wayterm > tweet\[message]
+        wayterm > t\[message]
             - post weibo
         """
         try:
@@ -85,22 +85,53 @@ class Wayterm_api(object):
 
     def get_comments(self, params):
         """
-        wayterm > rcomment/[tweet_id]
-        wayterm > rc/[message]
+        wayterm > comment\[tweet_id]
+        wayterm > c\[tweet_id]
             - read comments of a certain tweet
+            - list latest 20 comments to me if [tweet_id] is omitted
         """
-        tweet_id = params[0]
-        if tweet_id == None:
-            print 'Tweet Id can not be empty!'
-            return
-        if not isinstance(tweet_id, (int,long)):
-            print 'Tweet Id is invalid!'
+        try:
+            tweet_id = params[0]
+        except IndexError:
+            tweet_id = None
+        try:
+            if tweet_id == None:
+                response = self.client.get('comments/to_me', count=20)
+            else:
+                response = self.client.get('comments/show', id=tweet_id)
+
+            for comment in response['comments']:
+                print self.color.NAME + '[' + comment['user']['screen_name'] + '] ' + \
+                      self.color.VALUE + comment['text'] + ' - ' + \
+                      self.color.DARK + comment['created_at']
+                print self.color.LABEL + ' L ' + \
+                      self.color.PLAIN + comment['status']['text'] + self.color.PLAIN
+        except RuntimeError:
+            print 'Error.'
+
+
+    def post_comments(self, params):
+        """
+        wayterm > wcomment\[tweet_id]\foobar
+        wayterm > wc\[tweet_id]\foobar
+            - read comments of a certain tweet
+            - list latest 20 comments to me if [tweet_id] is omitted
+        """
+        try:
+            tweet_id = params[0]
+            comment  = params[1]
+        except IndexError:
+            print 'Error. Tweet id or comment iss not correct'
             return
         try:
-            response = self.client.get('comments/show', id=tweet_id)
-            print self.color.LABEL + '[POSTED] ' + \
-                  self.color.VALUE + response['created_at'] + ' - ' + \
-                  self.color.PLAIN + weibo_url
+            response = self.client.post('comments/create', id=tweet_id, comment=comment)
+            print self.color.LABEL + [COMMENTED] + \
+                  self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
+                  self.color.VALUE + response['text'] + ' - ' + \
+                  self.color.DARK + response['created_at']
+            print self.color.LABEL + ' L ' + \
+                  self.color.PLAIN + response['status']['text'] + self.color.PLAIN
+
         except RuntimeError:
             print 'Error.'
 
@@ -108,12 +139,16 @@ class Wayterm_api(object):
     def call(self, command):
         cmd = command[0].lower()
         options = {
-            'list'   : self.get_updates,
-            'l'      : self.get_updates,
-            'profile': self.get_profile,
-            'p'      : self.get_profile,
-            'tweet'  : self.post_tweet,
-            't'      : self.post_tweet,
+            'list'     : self.get_updates,
+            'l'        : self.get_updates,
+            'profile'  : self.get_profile,
+            'p'        : self.get_profile,
+            'tweet'    : self.post_tweet,
+            't'        : self.post_tweet,
+            'comment'  : self.get_comments,
+            'c'        : self.get_comments,
+            'wcomment' : self.post_comments,
+            'wc'       : self.post_comments,
         }
         try:
             params = []
@@ -122,5 +157,4 @@ class Wayterm_api(object):
             options[cmd](params)
         except KeyError:
             print 'Command error. Get command list by type help.'
-
 

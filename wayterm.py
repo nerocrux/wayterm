@@ -80,8 +80,11 @@ if __name__ == "__main__":
             command = raw_input('wayterm > ')
             if len(command) == 0:
                 pass
+            if command.lower() == 'exit':
+                print 'exiting...'
+                exit()
             else:
                 wayterm.call(command.split('\\'))
-        except:
-            print 'exiting...'
+        except RuntimeError:
+            print 'Error, exiting...'
             exit()
