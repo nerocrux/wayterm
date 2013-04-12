@@ -54,6 +54,10 @@ Sina Weibo client for terminal
  wayterm > wc\3566288775194487\foobar
  wayterm > wcomment\3566288775194487\foobar   # post foobar to a certain weibo
 
+* repost
+ wayterm > r\3566407071718733\foobar    # repost a weibo and add comment 'foobar'
+ wayterm > r\3566407071718733           # repost a weibo without add comment
+
 == INSTALL:
 
  sudo pip install wayterm

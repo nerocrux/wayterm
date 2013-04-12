@@ -139,6 +139,34 @@ class Wayterm_api(object):
             print 'Error.'
 
 
+    def repost(self, params):
+        """
+        wayterm > repost\[tweet_id]\[comment]
+        wayterm > r\[tweet_id]\[comment]
+            - repost weibo
+        """
+        try:
+            tweet_id = params[0]
+        except IndexError:
+            print 'Error. Tweet id or comment iss not correct'
+            return
+        try:
+            comment = params[1]
+        except IndexError:
+            comment = 'Repost'
+        try:
+            response = self.client.post('statuses/repost', id=tweet_id, status=comment)
+            print self.color.LABEL + '[REPOSTED] ' + \
+                  self.color.VALUE + response['text'] + ' - ' + \
+                  self.color.DARK + response['created_at']
+            print self.color.LABEL + ' L ' + \
+                  self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
+                  self.color.PLAIN + response['retweeted_status']['text'] + self.color.PLAIN
+
+        except RuntimeError:
+            print 'Error.'
+
+
     def call(self, command):
         cmd = command[0].lower()
         options = {
@@ -152,6 +180,8 @@ class Wayterm_api(object):
             'c'        : self.get_comments,
             'wcomment' : self.post_comments,
             'wc'       : self.post_comments,
+            'repost'   : self.repost,
+            'r'        : self.repost,
         }
         try:
             params = []
