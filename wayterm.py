@@ -5,6 +5,7 @@ from wayterm_api import Wayterm_api
 from wayterm_color import Wayterm_color
 from weibo import Client
 import sys
+import os
 import json
 import yaml
 
@@ -13,7 +14,6 @@ class Wayterm(object):
         self.app_key = '1746312660'
         self.app_secret = 'a113b12f49266b12125f6df1f9808045'
         self.callback_url = 'http://wayterm.nerocrux.org/done'
-        self.uid = '1792779680'
         self.color = Wayterm_color()
 
         if self._read_access_token():
@@ -33,9 +33,15 @@ class Wayterm(object):
             self._write_access_token(token)
 
 
+    @property
+    def _config_file(self):
+        __dir__ = os.path.dirname(__file__)
+        return os.path.join(__dir__, '.config.yaml')
+
+
     def _read_access_token(self):
         try:
-            token = yaml.load(open('config.yaml').read())
+            token = yaml.load(open(self._config_file).read())
             self.access_token = token['access_token']
             self.expire_at = token['expires_at']
             self.uid= token['uid']
@@ -45,7 +51,7 @@ class Wayterm(object):
 
 
     def _write_access_token(self, token):
-        stream = file('config.yaml', 'w')
+        stream = file(self._config_file, 'w')
         yaml.dump(token, stream)
 
 
