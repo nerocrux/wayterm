@@ -3,6 +3,7 @@
 
 from wayterm_api import Wayterm_api
 from wayterm_color import Wayterm_color
+from wayterm_reader import Wayterm_reader
 from weibo import Client
 import sys
 import os
@@ -15,6 +16,7 @@ class Wayterm(object):
         self.app_secret = 'a113b12f49266b12125f6df1f9808045'
         self.callback_url = 'http://wayterm.nerocrux.org/done'
         self.color = Wayterm_color()
+        self.reader = Wayterm_reader()
 
         if self._read_access_token():
             self.client = Client(self.app_key, self.app_secret, self.callback_url, self.uid, self.access_token, self.expire_at)
@@ -33,15 +35,9 @@ class Wayterm(object):
             self._write_access_token(token)
 
 
-    @property
-    def _config_file(self):
-        __dir__ = os.path.dirname(__file__)
-        return os.path.join(__dir__, '.config.yaml')
-
-
     def _read_access_token(self):
         try:
-            token = yaml.load(open(self._config_file).read())
+            token = yaml.load(open(os.path.join(os.getenv('HOME'), '.wayterm.yaml')).read())
             self.access_token = token['access_token']
             self.expire_at = token['expires_at']
             self.uid= token['uid']
@@ -51,7 +47,7 @@ class Wayterm(object):
 
 
     def _write_access_token(self, token):
-        stream = file(self._config_file, 'w')
+        stream = file(open(os.path.join(os.getenv('HOME'), '.wayterm.yaml')), 'w')
         yaml.dump(token, stream)
 
 
@@ -61,18 +57,14 @@ class Wayterm(object):
 
 
     def _init_print(self):
-        f = open('logo','r')
-        for line in f:
-            print line,
+        self.reader.printfile('logo')
 
 
     def call(self, command):
         if command[0].lower() == 'exit':
             exit()
         if command[0].lower() == 'help':
-            f = open('help','r')
-            for line in f:
-                print line,
+            self.reader.printfile('help')
             return
         api = Wayterm_api(self.client, self.uid)
         api.call(command)
