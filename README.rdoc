@@ -6,7 +6,7 @@
 
 Sina Weibo client for terminal
 
-== INSTALL:
+== INSTALL & RUN:
 
  pip install wayterm
  cd /your/path/to/wayterm
@@ -18,9 +18,7 @@ Sina Weibo client for terminal
 
 == SYNOPSIS:
 
-* start wayterm
-
- wayterm
+* basic
 
  wayterm > help
  wayterm > exit
@@ -29,7 +27,7 @@ Sina Weibo client for terminal
 
  wayterm > l
  wayterm > list
- wayterm > l\30 # get latest 30 updates
+ wayterm > l\30       # get latest 30 updates
 
 * get profile
 
@@ -46,7 +44,7 @@ Sina Weibo client for terminal
 
  wayterm > c
  wayterm > comment            # get latest 20 comments sent to me
- wayterm > c\3566288775194487 # get comments for a certain weibo
+ wayterm > c\3566288775194487 # get comments for a certain weibo using it's id. weibo id will be displayed when using list command
 
 * post comment
 
