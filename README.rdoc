@@ -6,6 +6,12 @@
 
 Sina Weibo client for terminal
 
+== INSTALL:
+
+ pip install wayterm
+ cd /your/path/to/wayterm
+ ./wayterm
+
 == FEATURES/PROBLEMS:
 
  Notice: Not working with python 3000, sorry.
@@ -55,10 +61,6 @@ Sina Weibo client for terminal
 
  wayterm > d\3566288775194487
  wayterm > delete\3566288775194487     # delete a certain weibo
-
-== INSTALL:
-
- sudo pip install wayterm
 
 =============
 If run wayterm for the first time, you'll be ask to do some setups and authorizations.
