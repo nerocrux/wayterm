@@ -47,7 +47,7 @@ class Wayterm(object):
 
 
     def _write_access_token(self, token):
-        stream = file(open(os.path.join(os.getenv('HOME'), '.wayterm.yaml')), 'w')
+        stream = file(os.path.join(os.getenv('HOME'), '.wayterm.yaml'), 'w')
         yaml.dump(token, stream)
 
 
