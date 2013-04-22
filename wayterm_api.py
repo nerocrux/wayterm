@@ -104,11 +104,10 @@ class Wayterm_api(object):
                 response = self.client.get('comments/show', id=tweet_id)
 
             for comment in response['comments']:
-                print self.color.NAME + '[' + comment['user']['screen_name'] + '] ' + \
-                      self.color.VALUE + comment['text'] + ' - ' + \
-                      self.color.DARK + comment['created_at']
                 print self.color.LABEL + ' L ' + \
-                      self.color.PLAIN + comment['status']['text'] + self.color.PLAIN
+                      self.color.NAME + '[' + comment['user']['screen_name'] + '] ' + \
+                      self.color.VALUE + comment['text'] + ' - ' + \
+                      self.color.DARK + comment['created_at'] + self.color.PLAIN
         except RuntimeError:
             print 'Error.'
 
@@ -128,7 +127,7 @@ class Wayterm_api(object):
             return
         try:
             response = self.client.post('comments/create', id=tweet_id, comment=comment)
-            print self.color.LABEL + [COMMENTED] + \
+            print self.color.LABEL + '[COMMENTED]' + \
                   self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
                   self.color.VALUE + response['text'] + ' - ' + \
                   self.color.DARK + response['created_at']
