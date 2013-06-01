@@ -1,4 +1,4 @@
-from wayterm import Wayterm
+from src.wayterm import Wayterm
 
 if __name__ == "__main__":
     wayterm = Wayterm()

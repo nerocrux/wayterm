@@ -7,5 +7,5 @@ Author: Peichao Yu <nerocrux@gmail.com>
 """
 
 __docformat__ = 'restructuredtext'
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 

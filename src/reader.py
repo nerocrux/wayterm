@@ -4,12 +4,12 @@
 import sys
 import os
 
-class Wayterm_reader(object):
+class Reader(object):
     def __init__(self):
         pass
 
     def _get_file(self, filename):
-        __dir__ = os.path.dirname(os.path.abspath(__file__))
+        __dir__ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(__dir__, filename)
 
     def printfile(self, filename):

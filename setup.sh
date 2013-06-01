@@ -1,5 +1,6 @@
 #!/bin/sh
 
-zip wayterm.zip __init__.py __main__.py wayterm.py wayterm_api.py wayterm_color.py wayterm_reader.py help logo
+zip -r wayterm.zip src/ help logo __init__.py __main__.py
 cat shebang.txt wayterm.zip > wayterm
 chmod +x wayterm
+rm wayterm.zip

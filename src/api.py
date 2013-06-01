@@ -1,11 +1,14 @@
-import sys
-from wayterm_color import Wayterm_color
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-class Wayterm_api(object):
+import sys
+from template import Template
+
+class Api(object):
     def __init__(self, client, uid):
         self.client = client
         self.uid = uid
-        self.color =  Wayterm_color()
+        self.template =  Template()
 
     def get_profile(self, params):
         """
@@ -25,15 +28,7 @@ class Wayterm_api(object):
         except RuntimeError:
             print 'Error.'
             return
-        print self.color.NAME + response['screen_name'] + ' (' + response['name'] + ')' + \
-              self.color.LABEL + ' [follower] '    + self.color.VALUE + str(response['followers_count']) + \
-              self.color.LABEL + ' [following] '   + self.color.VALUE + str(response['friends_count']) + \
-              self.color.LABEL + ' [posts] '       + self.color.VALUE + str(response['statuses_count']) + \
-              self.color.LABEL + ' [location] '    + self.color.VALUE + response['location'] + \
-              self.color.LABEL + ' [url] '         + self.color.VALUE + response['url']
-        print self.color.LABEL + ' [description] ' + self.color.VALUE + response['description']
-        print self.color.LABEL + response['status']['created_at'] + ' - ' + \
-              self.color.PLAIN + response['status']['text']
+        print self.template.build('Profile', 'get', response)
 
 
     def get_updates(self, params):
@@ -46,19 +41,14 @@ class Wayterm_api(object):
         try:
             limit = params[0]
         except IndexError:
-            limit = 20
+            limit = 10
         try:
             response = self.client.get('statuses/home_timeline', uid=self.uid, count=limit)
         except RuntimeError:
             print 'Error.'
             return
         for status in response['statuses']:
-            print self.color.NAME + '[' + status['user']['screen_name'] + '] ' + \
-                  self.color.PLAIN + status['text'] + ' '
-            print self.color.DARK + status['created_at'] + \
-                  ' [id] ' + str(status['id']) +\
-                  ' [comments] ' + str(status['comments_count']) + \
-                  ' [reposts] ' + str(status['reposts_count']) + self.color.PLAIN
+            print self.template.build('Update', 'get', status)
 
 
     def post_tweet(self, params):
@@ -79,9 +69,8 @@ class Wayterm_api(object):
             response = self.client.post('statuses/update', status=tweet)
             mid = self.client.get('statuses/querymid', id=response['id'], type=1)
             weibo_url = 'http://www.weibo.com/' + str(response['user']['id']) + '/' + mid["mid"]
-            print self.color.LABEL + '[POSTED] ' + \
-                  self.color.VALUE + response['created_at'] + ' - ' + \
-                  self.color.PLAIN + weibo_url
+            response.update({"weibo_url":weibo_url})
+            print self.template.build('Update', 'post', response)
         except RuntimeError:
             print 'Error.'
 
@@ -99,15 +88,12 @@ class Wayterm_api(object):
             tweet_id = None
         try:
             if tweet_id == None:
-                response = self.client.get('comments/to_me', count=20)
+                response = self.client.get('comments/to_me', count=10)
             else:
                 response = self.client.get('comments/show', id=tweet_id)
 
             for comment in response['comments']:
-                print self.color.LABEL + ' L ' + \
-                      self.color.NAME + '[' + comment['user']['screen_name'] + '] ' + \
-                      self.color.VALUE + comment['text'] + ' - ' + \
-                      self.color.DARK + comment['created_at'] + self.color.PLAIN
+                print self.template.build('Comment', 'get', comment)
         except RuntimeError:
             print 'Error.'
 
@@ -127,12 +113,7 @@ class Wayterm_api(object):
             return
         try:
             response = self.client.post('comments/create', id=tweet_id, comment=comment)
-            print self.color.LABEL + '[COMMENTED]' + \
-                  self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
-                  self.color.VALUE + response['text'] + ' - ' + \
-                  self.color.DARK + response['created_at']
-            print self.color.LABEL + ' L ' + \
-                  self.color.PLAIN + response['status']['text'] + self.color.PLAIN
+            print self.template.build('Comment', 'post', response)
 
         except RuntimeError:
             print 'Error.'
@@ -155,12 +136,7 @@ class Wayterm_api(object):
             comment = 'Repost'
         try:
             response = self.client.post('statuses/repost', id=tweet_id, status=comment)
-            print self.color.LABEL + '[REPOSTED] ' + \
-                  self.color.VALUE + response['text'] + ' - ' + \
-                  self.color.DARK + response['created_at']
-            print self.color.LABEL + ' L ' + \
-                  self.color.NAME + '[' + response['user']['screen_name'] + '] ' + \
-                  self.color.PLAIN + response['retweeted_status']['text'] + self.color.PLAIN
+            print self.template.build('Repost', 'post', response)
 
         except RuntimeError:
             print 'Error.'
@@ -179,9 +155,7 @@ class Wayterm_api(object):
             return
         try:
             response = self.client.post('statuses/destroy', id=tweet_id)
-            print self.color.LABEL + '[DELETED] ' + \
-                  self.color.VALUE + response['text'] + ' - ' + \
-                  self.color.DARK + response['created_at']
+            print self.template.build('Update', 'delete', response)
 
         except RuntimeError:
             print 'Error.'

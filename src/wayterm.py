@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from wayterm_api import Wayterm_api
-from wayterm_color import Wayterm_color
-from wayterm_reader import Wayterm_reader
+from api import Api
+from reader import Reader
+from template import Template
 from weibo import Client
 import sys
 import os
@@ -15,8 +15,8 @@ class Wayterm(object):
         self.app_key = '1746312660'
         self.app_secret = 'a113b12f49266b12125f6df1f9808045'
         self.callback_url = 'http://wayterm.nerocrux.org/done'
-        self.color = Wayterm_color()
-        self.reader = Wayterm_reader()
+        self.template = Template()
+        self.reader = Reader()
 
         if self._read_access_token():
             self.client = Client(self.app_key, self.app_secret, self.callback_url, self.uid, self.access_token, self.expire_at)
@@ -57,16 +57,16 @@ class Wayterm(object):
 
 
     def _init_print(self):
-        self.reader.printfile('logo')
+        self.reader.printfile(os.path.abspath('logo'))
 
 
     def call(self, command):
         if command[0].lower() == 'exit':
             exit()
         if command[0].lower() == 'help':
-            self.reader.printfile('help')
+            self.reader.printfile(os.path.abspath('help'))
             return
-        api = Wayterm_api(self.client, self.uid)
+        api = Api(self.client, self.uid)
         api.call(command)
 
 

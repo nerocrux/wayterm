@@ -1,4 +1,7 @@
-class Wayterm_color:
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class Color:
     PLAIN = '\033[0m'
     NAME = '\033[94m'
     LABEL = '\033[95m'
