@@ -36,7 +36,7 @@ class Api(object):
         wayterm > list\[limit]
         wayterm > l\[limit]
             - get user's newest updates
-            - default limit = 20
+            - default limit = 10
         """
         try:
             limit = params[0]
@@ -80,7 +80,7 @@ class Api(object):
         wayterm > comment\[tweet_id]
         wayterm > c\[tweet_id]
             - read comments of a certain tweet
-            - list latest 20 comments to me if [tweet_id] is omitted
+            - list latest 10 comments to me if [tweet_id] is omitted
         """
         try:
             tweet_id = params[0]
@@ -102,8 +102,6 @@ class Api(object):
         """
         wayterm > wcomment\[tweet_id]\foobar
         wayterm > wc\[tweet_id]\foobar
-            - read comments of a certain tweet
-            - list latest 20 comments to me if [tweet_id] is omitted
         """
         try:
             tweet_id = params[0]
