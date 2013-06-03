@@ -15,7 +15,7 @@ setup(
     license=open('LICENSE').read(),
     long_description=open('README.rdoc').read(),
     install_requires=[
-        "weibo",
+        "weibo >= 0.2.0",
         "pyyaml",
     ],
 )

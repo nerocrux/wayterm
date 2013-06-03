@@ -29,8 +29,7 @@ class Wayterm(object):
             token = {
                 'access_token':self.client.token_info['access_token'],
                 'expires_at':self.client.token_info['expires_at'],
-                #'uid':self.client.token_info['uid'], # FIXME this bugs, but should do this way
-                'uid':self._get_uid(),
+                'uid':self.client.token_info['uid'],
             }
             self._write_access_token(token)
 
