@@ -57,14 +57,14 @@ class Wayterm(object):
 
 
     def _init_print(self):
-        self.reader.printfile(os.path.abspath('logo'))
+        self.reader.printfile('logo')
 
 
     def call(self, command):
         if command[0].lower() == 'exit':
             exit()
         if command[0].lower() == 'help':
-            self.reader.printfile(os.path.abspath('help'))
+            self.reader.printfile('help')
             return
         api = Api(self.client, self.uid)
         api.call(command)
