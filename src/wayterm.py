@@ -31,6 +31,7 @@ class Wayterm(object):
                 'expires_at':self.client.token_info['expires_at'],
                 'uid':self.client.token_info['uid'],
             }
+            print self.client.token_info
             self._write_access_token(token)
 
 

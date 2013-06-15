@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import re
 from color import Color
 
 class Update(object):
@@ -39,12 +40,22 @@ class Update(object):
     def _weibo_url(self, url):
         return self.color.PLAIN + url
 
+    def _pic_urls(self, pic_urls):
+        result = self.color.DARK
+        for url in pic_urls:
+            result += '  L[pic] ' + self._pic_extender(url['thumbnail_pic']) + '\n'
+        return result
+
+    def _pic_extender(self, url):
+        return re.sub('http://[0-9a-zA-Z.]*/thumbnail', 'http://[0-9a-zA-Z.]*/bmiddle', url)
+
     def _eof(self):
         return self.color.PLAIN
 
     def get_text(self):
         return self._name(self.response['user']['screen_name']) + ' ' + \
                self._text(self.response['text']) + '\n' + \
+               self._pic_urls(self.response['pic_urls']) + \
                self._created_at(self.response['created_at']) + ' ' + \
                self._id(self.response['id']) + ' ' + \
                self._comments(self.response['comments_count']) + ' ' + \

@@ -3,12 +3,14 @@
 
 import sys
 from template import Template
+from settings import Settings
 
 class Api(object):
     def __init__(self, client, uid):
         self.client = client
         self.uid = uid
-        self.template =  Template()
+        self.template = Template()
+        self.settings = Settings()
 
     def get_profile(self, params):
         """
@@ -29,6 +31,20 @@ class Api(object):
             print 'Error.'
             return
         print self.template.build('Profile', 'get', response)
+        self.get_user_updates(screen_name, self.settings.PROFILE_STATUS_CNT)
+
+
+    def get_user_updates(self, screen_name, count):
+        """
+        private
+        """
+        try:
+            response = self.client.get('statuses/user_timeline', screen_name = screen_name, count = count)
+        except RuntimeError:
+            print 'Error.'
+            return
+        for status in response['statuses']:
+            print self.template.build('Update', 'get', status)
 
 
     def get_updates(self, params):
@@ -41,7 +57,7 @@ class Api(object):
         try:
             limit = params[0]
         except IndexError:
-            limit = 10
+            limit = self.settings.DEFAULT_LIST_STATUS_CNT
         try:
             response = self.client.get('statuses/home_timeline', uid=self.uid, count=limit)
         except RuntimeError:
@@ -68,7 +84,7 @@ class Api(object):
         try:
             response = self.client.post('statuses/update', status=tweet)
             mid = self.client.get('statuses/querymid', id=response['id'], type=1)
-            weibo_url = 'http://www.weibo.com/' + str(response['user']['id']) + '/' + mid["mid"]
+            weibo_url = self.settings.WEIBO_ROOT_URL + str(response['user']['id']) + '/' + mid["mid"]
             response.update({"weibo_url":weibo_url})
             print self.template.build('Update', 'post', response)
         except RuntimeError:
