@@ -19,9 +19,10 @@ class Wayterm(object):
         self.template = Template()
         self.url = Url()
         self.reader = Reader()
+        self.token = {}
 
         if self._read_access_token():
-            self.client = Client(self.app_key, self.app_secret, self.callback_url, self.uid, self.access_token, self.expire_at)
+            self.client = Client(self.app_key, self.app_secret, self.callback_url, self.token)
         else:
             self.client = Client(self.app_key, self.app_secret, self.callback_url)
             self.auth_url = self.url.shorten(self.client.authorize_url)
@@ -39,10 +40,7 @@ class Wayterm(object):
 
     def _read_access_token(self):
         try:
-            token = yaml.load(open(os.path.join(os.getenv('HOME'), '.wayterm.yaml')).read())
-            self.access_token = token['access_token']
-            self.expire_at = token['expires_at']
-            self.uid= token['uid']
+            self.token = yaml.load(open(os.path.join(os.getenv('HOME'), '.wayterm.yaml')).read())
         except:
             return False
         return True
@@ -51,11 +49,6 @@ class Wayterm(object):
     def _write_access_token(self, token):
         stream = file(os.path.join(os.getenv('HOME'), '.wayterm.yaml'), 'w')
         yaml.dump(token, stream)
-
-
-    def _get_uid(self):
-        response = self.client.get('account/get_uid')
-        return response['uid']
 
 
     def _init_print(self):
@@ -68,7 +61,7 @@ class Wayterm(object):
         if command[0].lower() == 'help':
             self.reader.printfile('help')
             return
-        api = Api(self.client, self.uid)
+        api = Api(self.client, self.token['uid'])
         api.call(command)
 
 

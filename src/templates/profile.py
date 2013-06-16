@@ -6,9 +6,10 @@ from color import Color
 
 class Profile(object):
 
-    def __init__(self, response, method = 'get'):
+    def __init__(self, response, shortener, method = 'get'):
         self.response = response
         self.method = method
+        self.shortener = shortener
         self.color = Color()
 
     def _name(self, screen_name, name):

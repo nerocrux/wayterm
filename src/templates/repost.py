@@ -6,9 +6,10 @@ from color import Color
 
 class Repost(object):
 
-    def __init__(self, response, method = 'post'):
+    def __init__(self, response, shortener, method = 'post'):
         self.response = response
         self.method = method
+        self.shortener = shortener
         self.color = Color()
 
     def _connector(self):

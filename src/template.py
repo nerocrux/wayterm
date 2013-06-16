@@ -8,12 +8,12 @@ from templates.update import Update
 from templates.comment import Comment
 from templates.repost import Repost
 
+
 class Template(object):
 
     def build(self, module, method, response):
-        shortener = Url()
         constructor = globals()[module]
-        instance = constructor(response, shortener, method)
+        instance = constructor(response, Url(), method)
         if method == 'post':
             return instance.post_text()
         elif method == 'delete':

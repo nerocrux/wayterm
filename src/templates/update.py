@@ -31,7 +31,6 @@ class Update(object):
     def _comments(self, comments_count):
         return ' [comments] ' + str(comments_count)
 
-
     def _reposts(self, reposts_count):
         return ' [reposts] ' + str(reposts_count)
 

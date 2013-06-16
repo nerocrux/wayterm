@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import urllib
 from template import Template
 from settings import Settings
 from templates.color import Color
@@ -76,6 +77,11 @@ class Api(object):
             - post weibo
         """
         try:
+            pic_url = params[1]
+        except IndexError:
+            pic_url = None
+
+        try:
             tweet = params[0]
             tweet_length = len(tweet.decode('utf-8'))
             if tweet_length == 0:
@@ -85,7 +91,12 @@ class Api(object):
                 print 'Tweet is over 140 characters. (' + str(tweet_length) + ' characters)'
                 return
 
-            response = self.client.post('statuses/update', status=tweet)
+            if pic_url is None:
+                response = self.client.post('statuses/update', status=tweet)
+            else:
+                pic_data = self._fetch_pic_data(pic_url)
+                response = self.client.post('statuses/upload', status=tweet, pic=pic_data)
+
             if not response.has_key('id'):
                 print 'Sina Weibo returns error.'
                 return
@@ -184,6 +195,8 @@ class Api(object):
     def _print_error(self, e):
         print self.color.ERROR + '[ERROR] ' + str(e) + self.color.PLAIN
 
+    def _fetch_pic_data(self, pic_url):
+        return urllib.urlopen(pic_url).read()
 
     def call(self, command):
         cmd = command[0].lower()

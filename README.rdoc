@@ -39,6 +39,7 @@ Sina Weibo client for terminal
 
  wayterm > t\write something
  wayterm > tweet\中文也OK
+ wayterm > t\Uplpoad image with a url\http://octodex.github.com/images/foundingfather_v2.png
 
 * get comments
 
