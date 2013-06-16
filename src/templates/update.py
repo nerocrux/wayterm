@@ -3,7 +3,6 @@
 
 import sys
 import re
-import pprint
 from color import Color
 
 class Update(object):
@@ -13,7 +12,6 @@ class Update(object):
         self.method = method
         self.shortener = shortener
         self.color = Color()
-        self.pp = pprint.PrettyPrinter(indent=4)
 
     def _name(self, screen_name, is_retweet = False):
         if is_retweet:
