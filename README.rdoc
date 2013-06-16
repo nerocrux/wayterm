@@ -1,6 +1,8 @@
 = wayterm
 
-* http://github.com/nerocrux/wayterm
+* http://wayterm.nerocrux.org/
+
+http://gyazo.com/3053ba4fa41afee9e06b44aa805a43e3.png
 
 == DESCRIPTION:
 
