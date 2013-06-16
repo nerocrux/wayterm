@@ -9,14 +9,5 @@ class Color:
     AT_NAME = '\033[92m'
     TIME    = '\033[93m'
     DARK    = '\033[90m'
+    ERROR   = '\033[1;31m'
     RETWEET = '\033[1;32m'
-
-    def disable(self):
-        self.PLAIN = ''
-        self.NAME = ''
-        self.LABEL = ''
-        self.VALUE = ''
-        self.AT_NAME = ''
-        self.TIME = ''
-        self.DARK = ''
-        self.RETWEET = ''

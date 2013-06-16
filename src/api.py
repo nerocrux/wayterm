@@ -4,6 +4,7 @@
 import sys
 from template import Template
 from settings import Settings
+from templates.color import Color
 
 class Api(object):
     def __init__(self, client, uid):
@@ -11,6 +12,7 @@ class Api(object):
         self.uid = uid
         self.template = Template()
         self.settings = Settings()
+        self.color = Color()
 
     def get_profile(self, params):
         """
@@ -27,8 +29,8 @@ class Api(object):
                 response = self.client.get('users/show', uid = self.uid)
             else:
                 response = self.client.get('users/show', screen_name = screen_name)
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
             return
         print self.template.build('Profile', 'get', response)
         self.get_user_updates(screen_name, self.settings.PROFILE_STATUS_CNT)
@@ -40,8 +42,8 @@ class Api(object):
         """
         try:
             response = self.client.get('statuses/user_timeline', screen_name = screen_name, count = count)
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
             return
         for status in response['statuses']:
             print self.template.build('Update', 'get', status)
@@ -60,8 +62,8 @@ class Api(object):
             limit = self.settings.DEFAULT_LIST_STATUS_CNT
         try:
             response = self.client.get('statuses/home_timeline', uid=self.uid, count=limit)
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
             return
         for status in response['statuses']:
             print self.template.build('Update', 'get', status)
@@ -75,28 +77,32 @@ class Api(object):
         """
         try:
             tweet = params[0]
-        except IndexError:
-            print 'Tweet can not be empty!'
-            return
-        if len(tweet) > 140:
-            print 'Tweet is over max length! [Input Words] = ' + len(tweet)
-            return
-        try:
+            tweet_length = len(tweet.decode('utf-8'))
+            if tweet_length == 0:
+                print 'Tweet can not be empty!'
+                return
+            if tweet_length > self.settings.MAX_CHARACTER_CNT:
+                print 'Tweet is over 140 characters. (' + str(tweet_length) + ' characters)'
+                return
+
             response = self.client.post('statuses/update', status=tweet)
+            if not response.has_key('id'):
+                print 'Sina Weibo returns error.'
+                return
+
             mid = self.client.get('statuses/querymid', id=response['id'], type=1)
             weibo_url = self.settings.WEIBO_ROOT_URL + str(response['user']['id']) + '/' + mid["mid"]
             response.update({"weibo_url":weibo_url})
             print self.template.build('Update', 'post', response)
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            print self.color.ERROR + '[ERROR] ' + str(e) + self.color.PLAIN
 
 
     def get_comments(self, params):
         """
         wayterm > comment\[tweet_id]
         wayterm > c\[tweet_id]
-            - read comments of a certain tweet
-            - list latest 10 comments to me if [tweet_id] is omitted
+            - read comments
         """
         try:
             tweet_id = params[0]
@@ -110,8 +116,8 @@ class Api(object):
 
             for comment in response['comments']:
                 print self.template.build('Comment', 'get', comment)
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
 
 
     def post_comments(self, params):
@@ -129,8 +135,8 @@ class Api(object):
             response = self.client.post('comments/create', id=tweet_id, comment=comment)
             print self.template.build('Comment', 'post', response)
 
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
 
 
     def repost(self, params):
@@ -152,8 +158,8 @@ class Api(object):
             response = self.client.post('statuses/repost', id=tweet_id, status=comment)
             print self.template.build('Repost', 'post', response)
 
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
 
 
     def delete(self, params):
@@ -171,8 +177,12 @@ class Api(object):
             response = self.client.post('statuses/destroy', id=tweet_id)
             print self.template.build('Update', 'delete', response)
 
-        except RuntimeError:
-            print 'Error.'
+        except RuntimeError as e:
+            self._print_error(e)
+
+
+    def _print_error(self, e):
+        print self.color.ERROR + '[ERROR] ' + str(e) + self.color.PLAIN
 
 
     def call(self, command):
