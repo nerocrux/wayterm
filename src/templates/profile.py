@@ -8,6 +8,7 @@ class Profile(object):
 
     def __init__(self, response, method = 'get'):
         self.response = response
+        self.method = method
         self.color = Color()
 
     def _name(self, screen_name, name):

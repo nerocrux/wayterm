@@ -8,4 +8,4 @@ class Settings:
     WEIBO_ROOT_URL = 'http://www.weibo.com'
 
     PROFILE_STATUS_CNT = 5
-    DEFAULT_LIST_STATUS_CNT = 10
+    DEFAULT_LIST_STATUS_CNT = 8

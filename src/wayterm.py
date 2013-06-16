@@ -5,7 +5,7 @@ from api import Api
 from reader import Reader
 from template import Template
 from weibo import Client
-from url import Url
+from lib.url import Url
 import sys
 import os
 import json
