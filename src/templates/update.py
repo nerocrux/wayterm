@@ -7,9 +7,10 @@ from color import Color
 
 class Update(object):
 
-    def __init__(self, response, method = 'get'):
+    def __init__(self, response, shortener, method = 'get'):
         self.response = response
         self.method = method
+        self.shortener = shortener
         self.color = Color()
 
     def _name(self, screen_name):
@@ -43,11 +44,11 @@ class Update(object):
     def _pic_urls(self, pic_urls):
         result = self.color.DARK
         for url in pic_urls:
-            result += '  L[pic] ' + self._pic_extender(url['thumbnail_pic']) + '\n'
+            result += '  L[pic] ' + self.shortener.shorten(self._pic_extender(url['thumbnail_pic'])) + '\n'
         return result
 
     def _pic_extender(self, url):
-        return re.sub('http://[0-9a-zA-Z.]*/thumbnail', 'http://[0-9a-zA-Z.]*/bmiddle', url)
+        return re.sub('/thumbnail/', '/bmiddle/', url)
 
     def _eof(self):
         return self.color.PLAIN

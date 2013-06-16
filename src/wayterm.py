@@ -5,6 +5,7 @@ from api import Api
 from reader import Reader
 from template import Template
 from weibo import Client
+from url import Url
 import sys
 import os
 import json
@@ -16,13 +17,14 @@ class Wayterm(object):
         self.app_secret = 'a113b12f49266b12125f6df1f9808045'
         self.callback_url = 'http://wayterm.nerocrux.org/done'
         self.template = Template()
+        self.url = Url()
         self.reader = Reader()
 
         if self._read_access_token():
             self.client = Client(self.app_key, self.app_secret, self.callback_url, self.uid, self.access_token, self.expire_at)
         else:
             self.client = Client(self.app_key, self.app_secret, self.callback_url)
-            self.auth_url = self.client.authorize_url
+            self.auth_url = self.url.shorten(self.client.authorize_url)
             print '[1] Open this url in your browser: ' + self.auth_url
             self.auth_code = raw_input('[2] Enter authorization code: ')
             self.client.set_code(self.auth_code)
