@@ -5,7 +5,7 @@ import sys
 import os
 
 class Settings:
-    WEIBO_ROOT_URL = 'http://www.weibo.com'
+    WEIBO_ROOT_URL = 'http://www.weibo.com/'
     MAX_CHARACTER_CNT = 140
 
     PROFILE_STATUS_CNT = 5
