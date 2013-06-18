@@ -63,6 +63,13 @@ Sina Weibo client for terminal
  wayterm > d\3566288775194487
  wayterm > delete\3566288775194487     # delete a certain weibo
 
+* get hot topics (trends)
+
+ wayterm > h
+ wayterm > hot      # show hourly hot topics
+ wayterm > h\d      #      daily
+ wayterm > h\w      #      weekly
+
 =============
 If run wayterm for the first time, you'll be ask to do some setups and authorizations.
 

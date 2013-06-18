@@ -2,11 +2,12 @@
 
     wayterm > l  or list      \[limit]           # show my timeline with count of [limit], default: 20
     wayterm > p  or profile   \[username]        # show [username]'s profile, default: my profile
-    wayterm > t  or tweet     \text              # post text to my timeline
+    wayterm > t  or tweet     \text\[imageurl]   # post text to my timeline
     wayterm > c  or comment   \[tweet_id]        # list [tweet_id]'s comments, default: 20 recent comments sent to me
     wayterm > wc or wcomment  \tweet_id\text     # comment to tweet_id's tweet with text
     wayterm > r  or repost    \tweet_id\[text]   # repost tweet_id and add comment [text]
+    wayterm > h  or hot       \[hdw]             # show hourly(h), daily(d), weekly(w) hot topics. default=hourly
 
-    ви params with [] is optional
+    # params with [] is optional
 
     -------------------------------------------------------------------------------------------
