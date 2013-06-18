@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name='wayterm',
-    version='0.0.12',
+    version='0.1.0',
     description='Weibo client for terminal',
     author='peichao.yu',
     author_email='nerocrux@gmail.com',
