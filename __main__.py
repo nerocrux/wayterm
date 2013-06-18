@@ -1,4 +1,5 @@
 from src.wayterm import Wayterm
+from src.reader import Reader
 import os
 import cmd
 import readline
@@ -8,8 +9,8 @@ class Console(cmd.Cmd):
     def __init__(self):
         cmd.Cmd.__init__(self)
         self.prompt = "wayterm > "
+        self.reader = Reader()
 
-    ## Command definitions ##
     def do_hist(self, args):
         """Print a list of commands that have been entered"""
         print self._hist
@@ -18,7 +19,6 @@ class Console(cmd.Cmd):
         """Exits from the console"""
         return -1
 
-    ## Command definitions to support Cmd object functionality ##
     def do_EOF(self, args):
         """Exit on system end of file character"""
         return self.do_exit(args)
@@ -33,9 +33,8 @@ class Console(cmd.Cmd):
            'help <command>' or '? <command>' gives help on <command>
         """
         ## The only reason to define this method is for the help text in the doc string
-        cmd.Cmd.do_help(self, args)
+        self.reader.printfile('help')
 
-    ## Override methods in Cmd object ##
     def preloop(self):
         """Initialization before prompting user for commands.
            Despite the claims in the Cmd documentaion, Cmd.preloop() is not a stub.

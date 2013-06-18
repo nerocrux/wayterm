@@ -192,6 +192,28 @@ class Api(object):
             self._print_error(e)
 
 
+    def get_hot(self, params):
+        try:
+            period = params[0]
+            if period is 'w':
+                endpoint = 'trends/weekly'
+            elif period is 'd':
+                endpoint = 'trends/daily'
+            else:
+                endpoint = 'trends/hourly'
+        except IndexError:
+            endpoint = 'trends/hourly'
+
+        try:
+            response = self.client.get(endpoint)
+            statuses = response['trends'].values().pop()
+            for status in statuses:
+                print self.template.build('Trend', 'get', status)
+        except RuntimeError as e:
+            self._print_error(e)
+            return
+
+
     def _print_error(self, e):
         print self.color.ERROR + '[ERROR] ' + str(e) + self.color.PLAIN
 
@@ -215,6 +237,8 @@ class Api(object):
             'r'        : self.repost,
             'delete'   : self.delete,
             'd'        : self.delete,
+            'hot'      : self.get_hot,
+            'h'        : self.get_hot,
         }
         try:
             params = []

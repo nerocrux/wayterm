@@ -7,6 +7,7 @@ from templates.profile import Profile
 from templates.update import Update
 from templates.comment import Comment
 from templates.repost import Repost
+from templates.trend import Trend
 
 
 class Template(object):
