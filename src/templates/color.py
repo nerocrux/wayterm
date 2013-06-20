@@ -11,3 +11,4 @@ class Color:
     DARK    = '\033[90m'
     ERROR   = '\033[1;31m'
     RETWEET = '\033[1;32m'
+    DELETED = '\033[1;33m'

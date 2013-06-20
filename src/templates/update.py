@@ -57,6 +57,8 @@ class Update(object):
         return re.sub('/thumbnail/', '/bmiddle/', url)
 
     def _retweet(self, retweet):
+        if not retweet.has_key('user'):
+            return '\t' + self.color.DELETED + 'Retweeted post has been deleted.' + self._eof()
         return '\t' + \
             self._name(retweet['user']['screen_name'], True) + ' ' + \
             self._text(retweet['text']) + '\n' + \

@@ -240,11 +240,11 @@ class Api(object):
             'hot'      : self.get_hot,
             'h'        : self.get_hot,
         }
-        try:
-            params = []
-            for item in command[1:]:
-                params.append(item)
-            options[cmd](params)
-        except KeyError:
-            print 'Command error. Get command list by type help.'
 
+        params = []
+        for item in command[1:]:
+            params.append(item)
+        if options.has_key(cmd):
+            options[cmd](params)
+        else:
+            print 'Command error. Get command list by type help.'
