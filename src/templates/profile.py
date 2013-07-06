@@ -49,8 +49,6 @@ class Profile(object):
                self._posts(self.response['statuses_count']) + \
                self._location(self.response['location']) + \
                self._url(self.response['url']) + '\n' + \
-               self._description(self.response['description']) + '\n' + \
-               self._created_at(self.response['status']['created_at']) + ' - ' + \
-               self._text(self.response['status']['text']) + \
+               self._description(self.response['description']) + \
                self._eof()
 
