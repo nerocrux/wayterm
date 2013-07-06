@@ -1,6 +1,6 @@
 from src.wayterm import Wayterm
 from src.reader import Reader
-import os
+import os, sys
 import cmd
 import readline
 
@@ -80,6 +80,10 @@ class Console(cmd.Cmd):
 
 if __name__ == '__main__':
     wayterm = Wayterm()
-    wayterm._init_print()
-    console = Console()
-    console . cmdloop()
+    if len(sys.argv) > 1:
+        sys.argv.pop(0)
+        wayterm.call(sys.argv)
+    else:
+        wayterm._init_print()
+        console = Console()
+        console . cmdloop()

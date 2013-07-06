@@ -14,6 +14,13 @@ Sina Weibo client for terminal
  cd /your/path/to/wayterm
  ./wayterm
 
+== Interactive Shell Mode
+
+ $ wayterm [command and parameters]  // In this way, you can run wayterm commands without using wayterm's interface.
+
+ ex)
+ $ wayterm profile 趙薇
+
 == FEATURES/PROBLEMS:
 
  Notice: Not working with python 3000, sorry.
