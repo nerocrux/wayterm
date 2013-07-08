@@ -30,12 +30,12 @@ class Wayterm(object):
             self.auth_code = raw_input('[2] Enter authorization code: ')
             self.client.set_code(self.auth_code)
             token = {
-                'access_token':self.client.token_info['access_token'],
-                'expires_at':self.client.token_info['expires_at'],
-                'uid':self.client.token_info['uid'],
+                'access_token':self.client.token['access_token'],
+                'expires_at':self.client.token['expires_at'],
+                'uid':self.client.token['uid'],
             }
-            print self.client.token_info
             self._write_access_token(token)
+            print 'Authorization done. Enjoy!'
 
 
     def _read_access_token(self):
@@ -61,7 +61,7 @@ class Wayterm(object):
         if command[0].lower() == 'help':
             self.reader.printfile('help')
             return
-        api = Api(self.client, self.token['uid'])
+        api = Api(self.client)
         api.call(command)
 
 

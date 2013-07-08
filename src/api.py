@@ -8,9 +8,8 @@ from settings import Settings
 from templates.color import Color
 
 class Api(object):
-    def __init__(self, client, uid):
+    def __init__(self, client):
         self.client = client
-        self.uid = uid
         self.template = Template()
         self.settings = Settings()
         self.color = Color()
@@ -27,7 +26,7 @@ class Api(object):
             screen_name = None
         try:
             if screen_name == None:
-                response = self.client.get('users/show', uid = self.uid)
+                response = self.client.get('users/show', uid = self.client.token['uid'])
             else:
                 response = self.client.get('users/show', screen_name = screen_name)
         except RuntimeError as e:
@@ -62,7 +61,7 @@ class Api(object):
         except IndexError:
             limit = self.settings.DEFAULT_LIST_STATUS_CNT
         try:
-            response = self.client.get('statuses/home_timeline', uid=self.uid, count=limit)
+            response = self.client.get('statuses/home_timeline', uid=self.client.token['uid'], count=limit)
         except RuntimeError as e:
             self._print_error(e)
             return
