@@ -139,7 +139,7 @@ class Api(object):
             tweet_id = params[0]
             comment  = params[1]
         except IndexError:
-            print 'Error. Tweet id or comment iss not correct'
+            print 'Error. Tweet id or comment is not correct'
             return
         try:
             response = self.client.post('comments/create', id=tweet_id, comment=comment)
